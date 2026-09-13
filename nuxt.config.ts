@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'A fast, calm, Khmer-native typing practice app.' },
         { name: 'theme-color', content: '#323437' },
       ],
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/brand/krupyang-mark.svg' }],
     },
   },
   typescript: { strict: true, typeCheck: true },

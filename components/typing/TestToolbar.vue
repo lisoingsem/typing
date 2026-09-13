@@ -11,6 +11,7 @@ const parameters = computed(() => {
   if (typing.mode === 'words') return [10, 25, 50, 100]
   return [15, 30, 60, 120]
 })
+const showTextOptions = computed(() => typing.mode === 'time' || typing.mode === 'words')
 
 function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
   typing.mode = mode
@@ -21,18 +22,59 @@ function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
 </script>
 
 <template>
-  <div class="mx-auto flex w-fit max-w-full flex-wrap items-center justify-center gap-2 rounded-xl bg-panel p-2 text-xs text-muted shadow-[0_10px_30px_rgba(0,0,0,.06)] sm:text-sm">
-    <div class="flex items-center gap-1 border-r border-faint pr-2">
-      <button class="focus-ring rounded-md px-3 py-2 transition hover:text-text" :class="typing.punctuation ? 'text-accent' : ''" @click="typing.punctuation = !typing.punctuation">@ សញ្ញា</button>
-      <button class="focus-ring rounded-md px-3 py-2 transition hover:text-text" :class="typing.numbers ? 'text-accent' : ''" @click="typing.numbers = !typing.numbers"># លេខ</button>
-    </div>
-    <div class="flex items-center gap-1 border-r border-faint pr-2">
-      <button v-for="option in modeOptions" :key="option.value" class="focus-ring rounded-md px-3 py-2 transition hover:text-text" :class="typing.mode === option.value ? 'text-accent' : ''" @click="selectMode(option.value)">
-        <span class="mr-1 font-bold">{{ option.icon }}</span>{{ option.label }}
-      </button>
-    </div>
-    <div v-if="typing.mode !== 'quote'" class="flex items-center gap-1">
-      <button v-for="value in parameters" :key="value" class="focus-ring rounded-md px-2 py-2 transition hover:text-text" :class="typing.parameter === value ? 'text-accent' : ''" @click="typing.parameter = value">{{ value }}</button>
+  <div class="mx-auto max-w-full overflow-x-auto pb-1">
+    <div class="mx-auto flex w-max items-center gap-1 rounded-xl bg-panel p-1.5 text-xs text-muted shadow-[0_10px_30px_rgba(0,0,0,.06)] sm:text-sm">
+      <div class="flex items-center gap-1" role="group" aria-label="ប្រភេទលំហាត់">
+        <button
+          v-for="option in modeOptions"
+          :key="option.value"
+          class="focus-ring flex h-9 items-center gap-1.5 rounded-lg px-2.5 transition hover:text-text sm:px-3"
+          :class="typing.mode === option.value ? 'bg-page text-accent' : ''"
+          :aria-pressed="typing.mode === option.value"
+          @click="selectMode(option.value)"
+        >
+          <span class="font-bold">{{ option.icon }}</span><span>{{ option.label }}</span>
+        </button>
+      </div>
+
+      <div v-if="typing.mode !== 'quote'" class="mx-1 h-5 w-px bg-faint" aria-hidden="true" />
+
+      <div v-if="typing.mode !== 'quote'" class="flex items-center gap-0.5" role="group" aria-label="ប្រវែងលំហាត់">
+        <button
+          v-for="value in parameters"
+          :key="value"
+          class="focus-ring grid h-9 min-w-9 place-items-center rounded-lg px-2 transition hover:text-text"
+          :class="typing.parameter === value ? 'bg-page text-accent' : ''"
+          :aria-pressed="typing.parameter === value"
+          @click="typing.parameter = value"
+        >
+          {{ value }}
+        </button>
+      </div>
+
+      <template v-if="showTextOptions">
+        <div class="mx-1 h-5 w-px bg-faint" aria-hidden="true" />
+        <div class="flex items-center gap-0.5" role="group" aria-label="ជម្រើសអត្ថបទ">
+          <button
+            class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
+            :class="typing.punctuation ? 'bg-page text-accent' : ''"
+            :aria-pressed="typing.punctuation"
+            title="បន្ថែមសញ្ញាវណ្ណយុត្តិ"
+            @click="typing.punctuation = !typing.punctuation"
+          >
+            ។ សញ្ញា
+          </button>
+          <button
+            class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
+            :class="typing.numbers ? 'bg-page text-accent' : ''"
+            :aria-pressed="typing.numbers"
+            title="បន្ថែមលេខ"
+            @click="typing.numbers = !typing.numbers"
+          >
+            ១២៣ លេខ
+          </button>
+        </div>
+      </template>
     </div>
   </div>
 </template>
