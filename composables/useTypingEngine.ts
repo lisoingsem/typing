@@ -78,7 +78,8 @@ export function useTypingEngine() {
 
   function finish() {
     if (finished.value || !startedAt.value) return
-    tick()
+    elapsed.value = (performance.now() - startedAt.value) / 1000
+    if (durationLimit.value) elapsed.value = Math.min(elapsed.value, durationLimit.value)
     finished.value = true
     if (ticker) clearInterval(ticker)
     stats.add(createResult())
