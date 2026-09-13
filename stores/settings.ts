@@ -6,6 +6,7 @@ export const useSettingsStore = defineStore('settings', {
     comparisonMode: 'normal' as ComparisonMode,
     showKeyboard: true,
     guidedMode: true,
+    correctOnly: true,
     sound: false,
     theme: 'dark' as 'dark' | 'light',
   }),

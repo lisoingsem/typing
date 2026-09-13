@@ -21,7 +21,7 @@ export const khmerNidaLayout: KhmerKey[][] = [
     f('KeyY', 'Y', 'យ', 'ួ', 'right-index'), f('KeyU', 'U', 'ុ', 'ូ', 'right-index'),
     f('KeyI', 'I', 'ិ', 'ី', 'right-middle'), f('KeyO', 'O', 'ោ', 'ៅ', 'right-ring'),
     f('KeyP', 'P', 'ផ', 'ភ', 'right-pinky'), f('BracketLeft', '[', 'ៀ', 'ឿ', 'right-pinky'),
-    f('BracketRight', ']', 'ឪ', 'ឧ', 'right-pinky'), f('Backslash', '\\', 'ឭ', 'ឳ', 'right-pinky'),
+    f('BracketRight', ']', 'ឪ', 'ឧ', 'right-pinky'), f('Backslash', '\\', 'ឮ', 'ឭ', 'right-pinky'),
   ],
   [
     f('CapsLock', 'caps', '', '', 'left-pinky', 1.75), f('KeyA', 'A', 'ា', 'ាំ', 'left-pinky'),
@@ -37,7 +37,7 @@ export const khmerNidaLayout: KhmerKey[][] = [
     f('KeyX', 'X', 'ខ', 'ឃ', 'left-ring'), f('KeyC', 'C', 'ច', 'ជ', 'left-middle'),
     f('KeyV', 'V', 'វ', 'េះ', 'left-index'), f('KeyB', 'B', 'ប', 'ព', 'left-index'),
     f('KeyN', 'N', 'ន', 'ណ', 'right-index'), f('KeyM', 'M', 'ម', 'ំ', 'right-index'),
-    f('Comma', ',', 'ំ', 'ុះ', 'right-middle'), f('Period', '.', '។', '៕', 'right-ring'),
+    f('Comma', ',', 'ុំ', 'ុះ', 'right-middle'), f('Period', '.', '។', '៕', 'right-ring'),
     f('Slash', '/', '៊', '?', 'right-pinky'), f('ShiftRight', 'shift', '', '', 'right-pinky', 2.35),
   ],
   [

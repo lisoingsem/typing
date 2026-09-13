@@ -8,7 +8,7 @@ const stats = useStatsStore()
 const typingText = ref<{ focus: () => void }>()
 
 const latestResult = computed(() => engine.finished.value ? stats.results[0] : undefined)
-const guide = computed(() => nextKeystroke(engine.target.value, engine.rawInput.value))
+const guide = computed(() => nextKeystroke(engine.target.value, engine.acceptedInput.value))
 
 function restart() {
   engine.restart(true)
@@ -54,7 +54,7 @@ onMounted(() => {
         @focus="engine.focused.value = true"
         @blur="engine.focused.value = false"
         @compositionstart="engine.composing.value = true"
-        @compositionend="engine.composing.value = false"
+        @compositionend="engine.endComposition"
         @keydown="onKeydown"
         @keyup="engine.keyUp"
       />
@@ -70,6 +70,7 @@ onMounted(() => {
         :wpm="engine.wpm.value"
         :accuracy="engine.accuracy.value"
         :started="Boolean(engine.startedAt.value)"
+        :feedback="engine.guideFeedback.value"
       />
 
       <KhmerKeyboard

@@ -3,6 +3,7 @@ import { compareClusters } from '~/lib/khmer/compare'
 import { segmentKhmer } from '~/lib/khmer/graphemes'
 import { normalizeKhmer } from '~/lib/khmer/normalize'
 import { generateTest } from '~/lib/test-generator'
+import { isGuidedInputValid, nextKeystroke } from '~/lib/keyboard-guide'
 import type { TestResult } from '~/types/typing'
 
 export function useTypingEngine() {
@@ -12,6 +13,7 @@ export function useTypingEngine() {
 
   const target = ref('')
   const rawInput = ref('')
+  const acceptedInput = ref('')
   const composing = ref(false)
   const startedAt = ref<number | null>(null)
   const elapsed = ref(0)
@@ -19,7 +21,10 @@ export function useTypingEngine() {
   const focused = ref(false)
   const activeCode = ref('')
   const samples = ref<number[]>([])
+  const guidedMistakes = ref(0)
+  const guideFeedback = ref<'idle' | 'correct' | 'incorrect'>('idle')
   let ticker: ReturnType<typeof setInterval> | undefined
+  let feedbackTimer: ReturnType<typeof setTimeout> | undefined
   let seed = Date.now()
 
   const durationLimit = computed(() => typing.mode === 'time' ? typing.parameter : 0)
@@ -30,7 +35,7 @@ export function useTypingEngine() {
     commitPending: finished.value,
   }))
   const correct = computed(() => clusters.value.filter(cluster => cluster.state === 'correct').length)
-  const incorrect = computed(() => clusters.value.filter(cluster => cluster.state === 'incorrect').length)
+  const incorrect = computed(() => clusters.value.filter(cluster => cluster.state === 'incorrect').length + guidedMistakes.value)
   const typedCount = computed(() => correct.value + incorrect.value)
   const accuracy = computed(() => typedCount.value ? Math.round(correct.value / typedCount.value * 100) : 100)
   const minutes = computed(() => Math.max(elapsed.value / 60, 1 / 60))
@@ -88,11 +93,14 @@ export function useTypingEngine() {
   function restart(newText = true) {
     if (ticker) clearInterval(ticker)
     rawInput.value = ''
+    acceptedInput.value = ''
     startedAt.value = null
     elapsed.value = 0
     finished.value = false
     composing.value = false
     samples.value = []
+    guidedMistakes.value = 0
+    guideFeedback.value = 'idle'
     activeCode.value = ''
     if (newText || !target.value) {
       seed += 1
@@ -100,16 +108,55 @@ export function useTypingEngine() {
     }
   }
 
+  function showGuideFeedback(value: 'correct' | 'incorrect') {
+    guideFeedback.value = value
+    if (feedbackTimer) clearTimeout(feedbackTimer)
+    feedbackTimer = setTimeout(() => { guideFeedback.value = 'idle' }, 550)
+  }
+
   function setInput(value: string) {
     if (finished.value) return
     if (value && !startedAt.value) start()
+    if (composing.value) {
+      rawInput.value = value
+      return
+    }
+
+    const previousLength = Array.from(acceptedInput.value).length
+    const candidateLength = Array.from(value).length
+    const isDeletion = candidateLength < previousLength
+    const mustBeCorrect = settings.guidedMode && settings.correctOnly
+    const valid = !mustBeCorrect || isDeletion || isGuidedInputValid(target.value, value)
+
+    if (!valid) {
+      rawInput.value = acceptedInput.value
+      guidedMistakes.value += 1
+      showGuideFeedback('incorrect')
+      return
+    }
+
+    acceptedInput.value = value
     rawInput.value = value
+    if (candidateLength > previousLength) showGuideFeedback('correct')
     const targetLength = segmentKhmer(target.value).length
     if (typing.mode !== 'time' && segmentKhmer(value).length >= targetLength) finish()
   }
 
+  function endComposition(value: string) {
+    composing.value = false
+    setInput(value)
+  }
+
   function keyDown(event: KeyboardEvent) {
     activeCode.value = event.code
+    const ignored = ['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Shift', 'Control', 'Alt', 'Meta'].includes(event.key)
+    if (settings.guidedMode && !ignored) {
+      const expected = nextKeystroke(target.value, acceptedInput.value)
+      if (expected) {
+        const matches = event.code === expected.code && event.shiftKey === expected.shift
+        showGuideFeedback(matches ? 'correct' : 'incorrect')
+      }
+    }
     if (event.key === 'Tab' || (event.key === 'Enter' && event.shiftKey)) {
       event.preventDefault()
       restart()
@@ -121,11 +168,15 @@ export function useTypingEngine() {
   }
 
   watch(() => [typing.mode, typing.parameter, typing.punctuation, typing.numbers], () => restart())
-  onBeforeUnmount(() => { if (ticker) clearInterval(ticker) })
+  onBeforeUnmount(() => {
+    if (ticker) clearInterval(ticker)
+    if (feedbackTimer) clearTimeout(feedbackTimer)
+  })
 
   return {
-    target, rawInput, composing, startedAt, elapsed, finished, focused, activeCode,
+    target, rawInput, acceptedInput, composing, startedAt, elapsed, finished, focused, activeCode,
+    guideFeedback, guidedMistakes,
     clusters, correct, incorrect, accuracy, rawWpm, wpm, remaining, progress,
-    restart, finish, setInput, keyDown, keyUp,
+    restart, finish, setInput, endComposition, keyDown, keyUp,
   }
 }

@@ -7,6 +7,7 @@ const props = defineProps<{
   wpm: number
   accuracy: number
   started: boolean
+  feedback: 'idle' | 'correct' | 'incorrect'
 }>()
 
 const displayCharacter = computed(() => props.keystroke?.value === ' ' ? 'space' : props.keystroke?.value || '✓')
@@ -32,6 +33,8 @@ const coach = computed(() => {
       <span v-if="keystroke?.shift" class="text-muted">+</span>
       <span class="min-w-12 rounded-md border border-accent/60 bg-page px-3 py-2 text-center text-sm font-semibold text-accent shadow-[0_2px_0_var(--accent)]">{{ keyLabel }}</span>
       <span v-if="keystroke" class="ml-2 hidden text-[11px] text-muted lg:inline">{{ fingerLabels[keystroke.finger] }}</span>
+      <span v-if="feedback === 'correct'" class="ml-auto text-xs text-accent">ត្រឹមត្រូវ ✓</span>
+      <span v-else-if="feedback === 'incorrect'" class="ml-auto text-xs font-semibold text-danger">ខុស — សាកម្ដងទៀត</span>
     </div>
 
     <div class="flex items-center justify-between gap-4 border-t border-faint pt-3 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">

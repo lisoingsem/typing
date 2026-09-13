@@ -36,3 +36,8 @@ export function shiftKeyFor(keystroke?: GuidedKeystroke): string | undefined {
   if (!keystroke?.shift) return undefined
   return keystroke.finger.startsWith('left-') ? 'ShiftRight' : 'ShiftLeft'
 }
+
+/** Guided lessons advance only while the user's raw sequence is a target prefix. */
+export function isGuidedInputValid(target: string, candidate: string): boolean {
+  return target.startsWith(candidate)
+}

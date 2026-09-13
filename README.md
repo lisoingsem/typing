@@ -29,6 +29,7 @@ The default practice screen includes a Mario-typing-style guide:
 - highlights the correct hand and finger, including the thumb for Space;
 - displays live WPM, accuracy, and adaptive coaching while typing;
 - marks a pressed wrong physical key in red.
+- keeps the lesson on the same target after a wrong character so the learner can retry immediately.
 
 Guided mode and the virtual keyboard can be enabled or disabled independently under Settings.
 

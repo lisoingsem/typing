@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { nextKeystroke, shiftKeyFor } from '../lib/keyboard-guide'
+import { isGuidedInputValid, nextKeystroke, shiftKeyFor } from '../lib/keyboard-guide'
 
 describe('NIDA keyboard guide', () => {
   it('maps a Khmer letter to its physical key', () => {
@@ -18,5 +18,16 @@ describe('NIDA keyboard guide', () => {
 
   it('guides spaces with the thumb', () => {
     expect(nextKeystroke(' ក', '')).toMatchObject({ code: 'Space', finger: 'right-thumb' })
+  })
+
+  it('accepts only a correct target prefix in guided practice', () => {
+    expect(isGuidedInputValid('ខ្មែរ', 'ខ្')).toBe(true)
+    expect(isGuidedInputValid('ខ្មែរ', 'ក')).toBe(false)
+  })
+
+  it('matches the NIDA extended backslash and comma keys', () => {
+    expect(nextKeystroke('ឮ', '')).toMatchObject({ code: 'Backslash', shift: false })
+    expect(nextKeystroke('ឭ', '')).toMatchObject({ code: 'Backslash', shift: true })
+    expect(nextKeystroke('ុំ', '')).toMatchObject({ code: 'Comma', shift: false })
   })
 })

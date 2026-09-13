@@ -13,7 +13,7 @@ const emit = defineEmits<{
   focus: []
   blur: []
   compositionstart: []
-  compositionend: []
+  compositionend: [value: string]
   keydown: [event: KeyboardEvent]
   keyup: [event: KeyboardEvent]
 }>()
@@ -23,7 +23,17 @@ const typedIndex = computed(() => props.clusters.findIndex(cluster => cluster.st
 const caretIndex = computed(() => typedIndex.value < 0 ? props.clusters.length : typedIndex.value)
 
 function focus() { input.value?.focus({ preventScroll: true }) }
-function onInput(event: Event) { emit('update:modelValue', (event.target as HTMLTextAreaElement).value) }
+function onInput(event: Event) {
+  const element = event.target as HTMLTextAreaElement
+  emit('update:modelValue', element.value)
+  nextTick(() => {
+    if (element.value !== props.modelValue) element.value = props.modelValue
+  })
+}
+
+function onCompositionEnd(event: CompositionEvent) {
+  emit('compositionend', (event.target as HTMLTextAreaElement).value)
+}
 
 onMounted(() => setTimeout(focus, 80))
 defineExpose({ focus })
@@ -44,7 +54,7 @@ defineExpose({ focus })
       @focus="emit('focus')"
       @blur="emit('blur')"
       @compositionstart="emit('compositionstart')"
-      @compositionend="emit('compositionend')"
+      @compositionend="onCompositionEnd"
       @keydown="emit('keydown', $event)"
       @keyup="emit('keyup', $event)"
     />
