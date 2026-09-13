@@ -42,7 +42,7 @@ export const khmerNidaLayout: KhmerKey[][] = [
   ],
   [
     f('ControlLeft', 'ctrl', '', '', 'left-pinky', 1.4), f('AltLeft', 'alt', '', '', 'left-pinky', 1.3),
-    f('Space', 'space', ' ', ' ', 'right-index', 7.2), f('AltRight', 'alt gr', '', '', 'right-pinky', 1.5),
+    f('Space', 'space', ' ', ' ', 'right-thumb', 7.2), f('AltRight', 'alt gr', '', '', 'right-pinky', 1.5),
     f('ControlRight', 'ctrl', '', '', 'right-pinky', 1.4),
   ],
 ]

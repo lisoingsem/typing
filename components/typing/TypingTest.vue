@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { nextKeystroke } from '~/lib/keyboard-guide'
+
 const engine = useTypingEngine()
 const typing = useTypingStore()
 const settings = useSettingsStore()
@@ -6,6 +8,7 @@ const stats = useStatsStore()
 const typingText = ref<{ focus: () => void }>()
 
 const latestResult = computed(() => engine.finished.value ? stats.results[0] : undefined)
+const guide = computed(() => nextKeystroke(engine.target.value, engine.rawInput.value))
 
 function restart() {
   engine.restart(true)
@@ -61,7 +64,19 @@ onMounted(() => {
         <span class="hidden sm:inline"><kbd class="rounded bg-muted px-2 py-1 text-page">esc</kbd> ផ្អាក</span>
       </div>
 
-      <KhmerKeyboard v-if="settings.showKeyboard" :active-code="engine.activeCode.value" />
+      <TypingGuide
+        v-if="settings.guidedMode"
+        :keystroke="guide"
+        :wpm="engine.wpm.value"
+        :accuracy="engine.accuracy.value"
+        :started="Boolean(engine.startedAt.value)"
+      />
+
+      <KhmerKeyboard
+        v-if="settings.showKeyboard"
+        :active-code="engine.activeCode.value"
+        :guide="settings.guidedMode ? guide : undefined"
+      />
     </div>
 
     <TestResults v-else-if="latestResult" :result="latestResult" @restart="restart" />
