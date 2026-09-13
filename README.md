@@ -33,15 +33,17 @@ The default practice screen includes a Mario-typing-style guide:
 
 Guided mode and the virtual keyboard can be enabled or disabled independently under Settings.
 
-## Khmer-first syllable lab
+## Dictionary-backed Khmer practice
 
-Krupyang defaults to a Khmer-specific syllable mode instead of a translated generic word test. For each visible cluster it:
+Krupyang opens in word mode with a curated corpus of 250 complete Khmer words. The corpus is normalized to the same Unicode order as the typing engine and checked by automated tests. Its source notes are in `data/content/km/SOURCES.md`.
+
+The beginner mode uses a smaller set of 50 complete everyday words. It replaces the earlier unfinished spelling fragments while keeping the guided NIDA keyboard experience. For each visible cluster the guide:
 
 - breaks the cluster into the actual NIDA keystroke sequence;
 - labels the base consonant, coeng/subscript consonant, vowel, and marks;
 - advances the builder one component at a time;
 - combines the cluster builder with correct-only input, finger guidance, and live coaching.
 
-Traditional timed, word-count, and quote modes remain available for speed practice.
+Timed, word-count, natural-sentence, and beginner modes are available. Optional generated numbers use Khmer digits.
 
 The vendored BetterKhmer implementation remains under its MIT license; see `lib/khmer/vendor/BETTERKHMER-LICENSE.txt`.

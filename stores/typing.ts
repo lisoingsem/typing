@@ -3,8 +3,8 @@ import type { TestMode } from '~/types/typing'
 
 export const useTypingStore = defineStore('typing', {
   state: () => ({
-    mode: 'syllables' as TestMode,
-    parameter: 10,
+    mode: 'words' as TestMode,
+    parameter: 25,
     punctuation: false,
     numbers: false,
   }),

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 const typing = useTypingStore()
 const modeOptions = [
-  { value: 'syllables', label: 'ព្យាង្គ', icon: 'ក្' },
-  { value: 'time', label: 'ពេល', icon: '◷' },
   { value: 'words', label: 'ពាក្យ', icon: 'A' },
+  { value: 'time', label: 'ពេល', icon: '◷' },
   { value: 'quote', label: 'ឃ្លា', icon: '❝' },
+  { value: 'syllables', label: 'មូលដ្ឋាន', icon: 'ក' },
 ] as const
 const parameters = computed(() => {
   if (typing.mode === 'syllables') return [5, 10, 20, 30]
