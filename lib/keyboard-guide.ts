@@ -41,3 +41,18 @@ export function shiftKeyFor(keystroke?: GuidedKeystroke): string | undefined {
 export function isGuidedInputValid(target: string, candidate: string): boolean {
   return target.startsWith(candidate)
 }
+
+export function keystrokeSequence(text: string): GuidedKeystroke[] {
+  const result: GuidedKeystroke[] = []
+  let remaining = text
+  while (remaining) {
+    const match = findKeystroke(remaining)
+    if (!match) {
+      remaining = Array.from(remaining).slice(1).join('')
+      continue
+    }
+    result.push(match)
+    remaining = Array.from(remaining).slice(Array.from(match.value).length).join('')
+  }
+  return result
+}

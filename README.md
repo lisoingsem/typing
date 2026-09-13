@@ -33,4 +33,15 @@ The default practice screen includes a Mario-typing-style guide:
 
 Guided mode and the virtual keyboard can be enabled or disabled independently under Settings.
 
+## Khmer-first syllable lab
+
+Krupyang defaults to a Khmer-specific syllable mode instead of a translated generic word test. For each visible cluster it:
+
+- breaks the cluster into the actual NIDA keystroke sequence;
+- labels the base consonant, coeng/subscript consonant, vowel, and marks;
+- advances the builder one component at a time;
+- combines the cluster builder with correct-only input, finger guidance, and live coaching.
+
+Traditional timed, word-count, and quote modes remain available for speed practice.
+
 The vendored BetterKhmer implementation remains under its MIT license; see `lib/khmer/vendor/BETTERKHMER-LICENSE.txt`.

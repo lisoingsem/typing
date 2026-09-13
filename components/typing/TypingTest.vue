@@ -9,6 +9,15 @@ const typingText = ref<{ focus: () => void }>()
 
 const latestResult = computed(() => engine.finished.value ? stats.results[0] : undefined)
 const guide = computed(() => nextKeystroke(engine.target.value, engine.acceptedInput.value))
+const activeClusterIndex = computed(() => engine.clusters.value.findIndex(cluster => cluster.state !== 'correct'))
+const activeCluster = computed(() => activeClusterIndex.value < 0 ? '' : engine.clusters.value[activeClusterIndex.value]?.expected ?? '')
+const typedInActiveCluster = computed(() => {
+  if (activeClusterIndex.value < 0) return 0
+  const before = engine.clusters.value
+    .slice(0, activeClusterIndex.value)
+    .reduce((total, cluster) => total + Array.from(cluster.expected).length, 0)
+  return Math.max(0, Array.from(engine.acceptedInput.value).length - before)
+})
 
 function restart() {
   engine.restart(true)
@@ -64,14 +73,17 @@ onMounted(() => {
         <span class="hidden sm:inline"><kbd class="rounded bg-muted px-2 py-1 text-page">esc</kbd> ផ្អាក</span>
       </div>
 
-      <TypingGuide
-        v-if="settings.guidedMode"
-        :keystroke="guide"
-        :wpm="engine.wpm.value"
-        :accuracy="engine.accuracy.value"
-        :started="Boolean(engine.startedAt.value)"
-        :feedback="engine.guideFeedback.value"
-      />
+      <div v-if="settings.guidedMode" class="mx-auto mb-5 grid w-full max-w-4xl gap-3 lg:grid-cols-[minmax(260px,.75fr)_minmax(500px,1.6fr)]">
+        <KhmerClusterCoach :cluster="activeCluster" :typed-codepoints="typedInActiveCluster" />
+        <TypingGuide
+          class="!mb-0"
+          :keystroke="guide"
+          :wpm="engine.wpm.value"
+          :accuracy="engine.accuracy.value"
+          :started="Boolean(engine.startedAt.value)"
+          :feedback="engine.guideFeedback.value"
+        />
+      </div>
 
       <KhmerKeyboard
         v-if="settings.showKeyboard"

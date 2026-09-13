@@ -1,4 +1,4 @@
-export type TestMode = 'time' | 'words' | 'quote'
+export type TestMode = 'syllables' | 'time' | 'words' | 'quote'
 export type ComparisonMode = 'normal' | 'strict'
 export type ClusterState = 'untouched' | 'correct' | 'incorrect' | 'pending'
 

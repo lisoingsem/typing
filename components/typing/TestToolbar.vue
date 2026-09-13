@@ -1,14 +1,20 @@
 <script setup lang="ts">
 const typing = useTypingStore()
 const modeOptions = [
+  { value: 'syllables', label: 'ព្យាង្គ', icon: 'ក្' },
   { value: 'time', label: 'ពេល', icon: '◷' },
   { value: 'words', label: 'ពាក្យ', icon: 'A' },
   { value: 'quote', label: 'ឃ្លា', icon: '❝' },
 ] as const
-const parameters = computed(() => typing.mode === 'words' ? [10, 25, 50, 100] : [15, 30, 60, 120])
+const parameters = computed(() => {
+  if (typing.mode === 'syllables') return [5, 10, 20, 30]
+  if (typing.mode === 'words') return [10, 25, 50, 100]
+  return [15, 30, 60, 120]
+})
 
-function selectMode(mode: 'time' | 'words' | 'quote') {
+function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
   typing.mode = mode
+  if (mode === 'syllables' && ![5, 10, 20, 30].includes(typing.parameter)) typing.parameter = 10
   if (mode === 'words' && ![10, 25, 50, 100].includes(typing.parameter)) typing.parameter = 25
   if (mode === 'time' && ![15, 30, 60, 120].includes(typing.parameter)) typing.parameter = 30
 }

@@ -1,5 +1,6 @@
 import commonWords from '~/data/content/km/common-100.json'
 import quotes from '~/data/content/km/quotes.json'
+import syllables from '~/data/content/km/syllables.json'
 import type { TestMode } from '~/types/typing'
 
 function mulberry32(seed: number) {
@@ -19,6 +20,10 @@ export function generateTest(
   seed = Date.now(),
 ): string {
   if (mode === 'quote') return quotes[Math.abs(seed) % quotes.length] ?? quotes[0]!
+  if (mode === 'syllables') {
+    const random = mulberry32(seed)
+    return Array.from({ length: parameter }, () => syllables[Math.floor(random() * syllables.length)] ?? syllables[0]!).join(' ')
+  }
   const random = mulberry32(seed)
   const count = mode === 'words' ? parameter : Math.max(42, parameter * 2)
   const words: string[] = []
