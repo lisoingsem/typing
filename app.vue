@@ -7,12 +7,15 @@ const canonicalUrl = computed(() => {
   return siteOrigin.value ? `${siteOrigin.value}${route.path === '/' ? '' : route.path}` : ''
 })
 
+const shareImageUrl = computed(() => `${siteOrigin.value}/brand/typing-share-v2.png`)
+
 useHead(() => ({
   link: canonicalUrl.value ? [{ rel: 'canonical', href: canonicalUrl.value }] : [],
   meta: canonicalUrl.value ? [
     { property: 'og:url', content: canonicalUrl.value },
-    { property: 'og:image', content: `${siteOrigin.value}/brand/krupyang-key.png` },
-    { name: 'twitter:image', content: `${siteOrigin.value}/brand/krupyang-key.png` },
+    { property: 'og:image', content: shareImageUrl.value },
+    { property: 'og:image:secure_url', content: shareImageUrl.value },
+    { name: 'twitter:image', content: shareImageUrl.value },
   ] : [],
   script: canonicalUrl.value ? [{
     type: 'application/ld+json',
