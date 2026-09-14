@@ -43,7 +43,7 @@ onMounted(() => {
   <div class="flex flex-1 flex-col">
     <TestToolbar v-if="!engine.finished.value" />
 
-    <div v-if="!engine.finished.value" class="flex flex-1 flex-col justify-center py-6">
+    <div v-if="!engine.finished.value" class="flex flex-1 flex-col justify-start py-4 sm:py-5">
       <div
         class="mx-auto flex h-5 w-full max-w-3xl items-center gap-3 transition-opacity duration-200"
         :class="engine.startedAt.value ? 'opacity-100' : 'opacity-0'"

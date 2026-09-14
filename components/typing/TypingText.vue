@@ -40,7 +40,7 @@ defineExpose({ focus })
 </script>
 
 <template>
-  <section class="relative cursor-text py-12 sm:py-16" aria-label="Typing test" @click="focus">
+  <section class="relative cursor-text py-8 sm:py-10" aria-label="Typing test" @click="focus">
     <textarea
       ref="input"
       :value="modelValue"
