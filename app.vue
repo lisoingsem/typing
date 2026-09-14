@@ -1,14 +1,19 @@
 <script setup lang="ts">
 const route = useRoute()
 const config = useRuntimeConfig()
+const siteOrigin = computed(() => config.public.siteUrl?.replace(/\/$/, ''))
 
 const canonicalUrl = computed(() => {
-  const siteUrl = config.public.siteUrl?.replace(/\/$/, '')
-  return siteUrl ? `${siteUrl}${route.path === '/' ? '' : route.path}` : ''
+  return siteOrigin.value ? `${siteOrigin.value}${route.path === '/' ? '' : route.path}` : ''
 })
 
 useHead(() => ({
   link: canonicalUrl.value ? [{ rel: 'canonical', href: canonicalUrl.value }] : [],
+  meta: canonicalUrl.value ? [
+    { property: 'og:url', content: canonicalUrl.value },
+    { property: 'og:image', content: `${siteOrigin.value}/brand/krupyang-key.png` },
+    { name: 'twitter:image', content: `${siteOrigin.value}/brand/krupyang-key.png` },
+  ] : [],
   script: canonicalUrl.value ? [{
     type: 'application/ld+json',
     innerHTML: JSON.stringify({

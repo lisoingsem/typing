@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || process.env.CF_PAGES_URL || '',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://typing-2tp.pages.dev',
     },
   },
   nitro: {
@@ -30,12 +30,10 @@ export default defineNuxtConfig({
         { property: 'og:locale', content: 'km_KH' },
         { property: 'og:title', content: 'ហាត់វាយអក្សរខ្មែរ — Typing by Krupyang' },
         { property: 'og:description', content: 'រៀន និងហាត់វាយអក្សរខ្មែរលើក្ដារចុច NIDA ជាមួយការណែនាំគ្រាប់ចុច ម្រាមដៃ និងល្បឿន WPM។' },
-        { property: 'og:image', content: '/brand/krupyang-key.png' },
         { property: 'og:image:alt', content: 'និមិត្តសញ្ញា Typing by Krupyang' },
         { name: 'twitter:card', content: 'summary' },
         { name: 'twitter:title', content: 'ហាត់វាយអក្សរខ្មែរ — Typing by Krupyang' },
         { name: 'twitter:description', content: 'រៀន និងហាត់វាយអក្សរខ្មែរលើក្ដារចុច NIDA ដោយឥតគិតថ្លៃ។' },
-        { name: 'twitter:image', content: '/brand/krupyang-key.png' },
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/brand/krupyang-key.png' },

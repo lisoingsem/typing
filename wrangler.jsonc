@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "typing-by-krupyang",
+  "name": "typing",
   "pages_build_output_dir": ".output/public",
   "compatibility_date": "2026-09-14"
 }

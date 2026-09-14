@@ -17,6 +17,8 @@ The site is statically generated for Cloudflare Pages:
 npm run build:cloudflare
 ```
 
+Production URL: <https://typing-2tp.pages.dev>
+
 For Cloudflare Pages Git integration, use:
 
 - Production branch: `main`
