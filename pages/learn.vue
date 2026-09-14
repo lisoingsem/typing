@@ -7,7 +7,7 @@ const lesson = computed(() => lessons[selected.value]!)
 useSeoMeta({
   title: 'រៀនវាយអក្សរខ្មែរ NIDA',
   description: 'រៀនវាយអក្សរខ្មែរតាមជំហាន ចាប់ពីជួរគោល រហូតដល់ព្យញ្ជនៈ ជើងអក្សរ និងស្រៈលើក្ដារចុចខ្មែរ NIDA។',
-  ogTitle: 'រៀនវាយអក្សរខ្មែរ NIDA · Krupyang',
+  ogTitle: 'រៀនវាយអក្សរខ្មែរ NIDA — Typing by Krupyang',
   ogDescription: 'មេរៀនវាយអក្សរខ្មែរតាមជំហាន ជាមួយផែនទីគ្រាប់ចុច និងការណែនាំម្រាមដៃ។',
 })
 </script>

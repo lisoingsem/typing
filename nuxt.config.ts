@@ -16,8 +16,8 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'ហាត់វាយអក្សរខ្មែរ | Typing by Krupyang',
-      titleTemplate: '%s · Typing by Krupyang',
+      title: 'ហាត់វាយអក្សរខ្មែរ — Typing by Krupyang',
+      titleTemplate: '%s — Typing by Krupyang',
       htmlAttrs: { lang: 'km' },
       meta: [
         { name: 'description', content: 'ហាត់វាយអក្សរខ្មែរលើក្ដារចុច NIDA ដោយឥតគិតថ្លៃ ជាមួយការណែនាំម្រាមដៃ ពាក្យខ្មែរត្រឹមត្រូវ និងស្ថិតិល្បឿន WPM។' },
@@ -28,12 +28,12 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Typing by Krupyang' },
         { property: 'og:locale', content: 'km_KH' },
-        { property: 'og:title', content: 'ហាត់វាយអក្សរខ្មែរ | Typing by Krupyang' },
+        { property: 'og:title', content: 'ហាត់វាយអក្សរខ្មែរ — Typing by Krupyang' },
         { property: 'og:description', content: 'រៀន និងហាត់វាយអក្សរខ្មែរលើក្ដារចុច NIDA ជាមួយការណែនាំគ្រាប់ចុច ម្រាមដៃ និងល្បឿន WPM។' },
         { property: 'og:image', content: '/brand/krupyang-key.png' },
         { property: 'og:image:alt', content: 'និមិត្តសញ្ញា Typing by Krupyang' },
         { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:title', content: 'ហាត់វាយអក្សរខ្មែរ | Typing by Krupyang' },
+        { name: 'twitter:title', content: 'ហាត់វាយអក្សរខ្មែរ — Typing by Krupyang' },
         { name: 'twitter:description', content: 'រៀន និងហាត់វាយអក្សរខ្មែរលើក្ដារចុច NIDA ដោយឥតគិតថ្លៃ។' },
         { name: 'twitter:image', content: '/brand/krupyang-key.png' },
       ],

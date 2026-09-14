@@ -8,7 +8,7 @@ const keyName = computed(() => khmerKeyByCode.get(activeCode.value))
 useSeoMeta({
   title: 'ផែនទីក្ដារចុចខ្មែរ NIDA',
   description: 'មើលទីតាំងអក្សរខ្មែរទាំងអស់លើក្ដារចុច NIDA សាកល្បងចុចគ្រាប់ចុច និងរៀនម្រាមដៃដែលត្រឹមត្រូវ។',
-  ogTitle: 'ផែនទីក្ដារចុចខ្មែរ NIDA · Krupyang',
+  ogTitle: 'ផែនទីក្ដារចុចខ្មែរ NIDA — Typing by Krupyang',
   ogDescription: 'ផែនទីក្ដារចុចខ្មែរ NIDA ដែលអាចសាកល្បងបាន និងបង្ហាញម្រាមដៃសម្រាប់គ្រាប់ចុចនីមួយៗ។',
 })
 
