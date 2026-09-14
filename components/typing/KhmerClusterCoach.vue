@@ -32,7 +32,7 @@ const currentRole = computed(() => steps.value.find(step => step.state === 'curr
 </script>
 
 <template>
-  <section class="flex min-h-11 w-full items-center gap-3 overflow-x-auto px-1 py-1" aria-label="Khmer keystroke sequence">
+  <section class="flex min-h-11 w-full items-center gap-3 overflow-x-auto border-t border-faint px-3 py-2 sm:px-4" aria-label="Khmer keystroke sequence">
     <div class="flex shrink-0 items-baseline gap-2">
       <p class="text-[9px] text-muted">លំដាប់</p>
       <p class="text-xl font-semibold text-text">{{ displayCluster }}</p>
@@ -45,7 +45,7 @@ const currentRole = computed(() => steps.value.find(step => step.state === 'curr
         <div class="min-w-9 rounded-md px-2 py-1 text-center transition-all" :class="{
           'bg-faint text-muted': step.state === 'done',
           'bg-accent text-page': step.state === 'current',
-          'bg-panel text-muted': step.state === 'next',
+          'bg-page text-muted': step.state === 'next',
         }">
           <span class="text-sm">{{ step.value === ' ' ? '␣' : step.value }}</span>
           <span class="ml-1 text-[7px] uppercase opacity-70">{{ step.shift ? '⇧+' : '' }}{{ step.latin }}</span>
@@ -54,6 +54,6 @@ const currentRole = computed(() => steps.value.find(step => step.state === 'curr
       </div>
     </div>
 
-    <p v-if="currentRole" class="ml-auto hidden shrink-0 text-[9px] text-muted md:block">{{ currentRole }}</p>
+    <p v-if="currentRole" class="hidden shrink-0 rounded-full bg-page px-2.5 py-1 text-[9px] text-muted md:block">{{ currentRole }}</p>
   </section>
 </template>
