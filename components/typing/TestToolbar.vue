@@ -1,54 +1,64 @@
 <script setup lang="ts">
 const typing = useTypingStore()
 const modeOptions = [
-  { value: 'words', label: 'ពាក្យ', icon: 'A' },
-  { value: 'time', label: 'ពេល', icon: '◷' },
-  { value: 'syllables', label: 'មូលដ្ឋាន', icon: 'ក' },
+  { value: 'words', label: 'ពាក្យ' },
+  { value: 'time', label: 'ពេល' },
+  { value: 'syllables', label: 'មូលដ្ឋាន' },
 ] as const
 const parameters = computed(() => {
   if (typing.mode === 'syllables') return [5, 10, 20, 30]
   if (typing.mode === 'words') return [10, 25, 50, 100]
   return [15, 30, 60, 120]
 })
+const modeLabel = computed(() => modeOptions.find(option => option.value === typing.mode)?.label ?? 'ពាក្យ')
+const parameterLabel = computed(() => typing.mode === 'time' ? 'វិ.' : typing.mode === 'syllables' ? 'ក្រុម' : 'ពាក្យ')
+
 function selectMode(mode: 'syllables' | 'time' | 'words') {
   typing.mode = mode
   if (mode === 'syllables' && ![5, 10, 20, 30].includes(typing.parameter)) typing.parameter = 10
   if (mode === 'words' && ![10, 25, 50, 100].includes(typing.parameter)) typing.parameter = 25
   if (mode === 'time' && ![15, 30, 60, 120].includes(typing.parameter)) typing.parameter = 30
 }
+
+function onModeChange(event: Event) {
+  selectMode((event.target as HTMLSelectElement).value as 'syllables' | 'time' | 'words')
+}
+
+function onParameterChange(event: Event) {
+  typing.parameter = Number((event.target as HTMLSelectElement).value)
+}
 </script>
 
 <template>
-  <div class="mx-auto max-w-full overflow-x-auto pb-1">
-    <div class="mx-auto flex w-max items-center gap-1 rounded-2xl bg-panel p-1.5 text-xs text-muted shadow-[0_12px_32px_rgba(0,0,0,.08)] sm:text-sm">
-      <div class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ប្រភេទលំហាត់">
-        <button
-          v-for="option in modeOptions"
-          :key="option.value"
-          class="focus-ring flex h-9 items-center gap-1.5 rounded-lg px-2.5 transition hover:text-text sm:px-3"
-          :class="typing.mode === option.value ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-          :aria-pressed="typing.mode === option.value"
-          @click="selectMode(option.value)"
-        >
-          <span class="font-bold">{{ option.icon }}</span><span>{{ option.label }}</span>
-        </button>
-      </div>
+  <div class="flex h-9 shrink-0 items-center rounded-xl bg-panel p-1 text-xs shadow-[0_8px_24px_rgba(0,0,0,.07)]">
+    <label class="relative">
+      <span class="sr-only">ប្រភេទលំហាត់</span>
+      <select
+        :value="typing.mode"
+        class="focus-ring h-7 appearance-none rounded-lg bg-transparent py-1 pl-2.5 pr-7 text-accent outline-none transition hover:bg-faint"
+        :aria-label="`ប្រភេទ៖ ${modeLabel}`"
+        @change="onModeChange"
+      >
+        <option v-for="option in modeOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
+      </select>
+      <span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[9px] text-muted">⌄</span>
+    </label>
 
-      <span class="mx-1.5 h-5 w-px shrink-0 bg-faint" aria-hidden="true" />
+    <span class="h-4 w-px bg-faint" aria-hidden="true" />
 
-      <div class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ប្រវែងលំហាត់">
-        <button
-          v-for="value in parameters"
-          :key="value"
-          class="focus-ring grid h-9 min-w-9 place-items-center rounded-lg px-2 transition hover:text-text"
-          :class="typing.parameter === value ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-          :aria-pressed="typing.parameter === value"
-          @click="typing.parameter = value"
-        >
-          {{ value }}
-        </button>
-      </div>
+    <label class="relative flex items-center">
+      <span class="sr-only">ប្រវែងលំហាត់</span>
+      <select
+        :value="typing.parameter"
+        class="focus-ring h-7 appearance-none rounded-lg bg-transparent py-1 pl-2.5 pr-7 text-text outline-none transition hover:bg-faint"
+        :aria-label="`ប្រវែង៖ ${typing.parameter} ${parameterLabel}`"
+        @change="onParameterChange"
+      >
+        <option v-for="value in parameters" :key="value" :value="value">{{ value }}</option>
+      </select>
+      <span class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[9px] text-muted">⌄</span>
+    </label>
 
-    </div>
+    <span class="hidden pr-2 text-[9px] text-muted sm:inline">{{ parameterLabel }}</span>
   </div>
 </template>

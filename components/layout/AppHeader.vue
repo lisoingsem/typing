@@ -19,8 +19,6 @@ onMounted(() => settings.hydrate())
   <header class="flex h-20 items-center justify-between gap-3 sm:h-24">
     <NuxtLink to="/" class="focus-ring shrink-0 rounded-xl" aria-label="Krupyang home"><BrandLogo /></NuxtLink>
 
-    <TestToolbar v-if="route.path === '/'" class="hidden min-w-0 lg:block" />
-
     <div class="flex shrink-0 items-center gap-1 sm:gap-2">
       <nav class="flex items-center gap-0.5" aria-label="Primary navigation">
         <NuxtLink
