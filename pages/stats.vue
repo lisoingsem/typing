@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const stats = useStatsStore()
+useSeoMeta({
+  title: 'ស្ថិតិការហាត់វាយ',
+  robots: 'noindex, nofollow',
+})
 onMounted(() => stats.hydrate())
 </script>
 

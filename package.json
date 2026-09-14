@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
+    "build:cloudflare": "nuxt generate",
+    "deploy:cloudflare": "npx --yes wrangler@latest pages deploy .output/public --project-name typing-by-krupyang",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
     "test": "vitest run"

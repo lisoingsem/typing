@@ -5,6 +5,13 @@ import { fingerLabels } from '~/lib/keyboard-guide'
 const activeCode = ref('')
 const keyName = computed(() => khmerKeyByCode.get(activeCode.value))
 
+useSeoMeta({
+  title: 'ផែនទីក្ដារចុចខ្មែរ NIDA',
+  description: 'មើលទីតាំងអក្សរខ្មែរទាំងអស់លើក្ដារចុច NIDA សាកល្បងចុចគ្រាប់ចុច និងរៀនម្រាមដៃដែលត្រឹមត្រូវ។',
+  ogTitle: 'ផែនទីក្ដារចុចខ្មែរ NIDA · Krupyang',
+  ogDescription: 'ផែនទីក្ដារចុចខ្មែរ NIDA ដែលអាចសាកល្បងបាន និងបង្ហាញម្រាមដៃសម្រាប់គ្រាប់ចុចនីមួយៗ។',
+})
+
 function down(event: KeyboardEvent) { activeCode.value = event.code }
 function up(event: KeyboardEvent) { if (activeCode.value === event.code) activeCode.value = '' }
 onMounted(() => { window.addEventListener('keydown', down); window.addEventListener('keyup', up) })

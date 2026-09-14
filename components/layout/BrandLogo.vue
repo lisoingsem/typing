@@ -15,7 +15,7 @@
       <span aria-hidden="true" class="brand-wordmark mt-1 block text-[30px] font-semibold leading-[.85] tracking-[-.06em] text-text">
         typ<span class="relative inline-block">ı<span class="absolute left-1/2 top-[-.04em] h-2 w-2 -translate-x-1/2 rounded-full bg-accent" /></span>ng
       </span>
-      <span class="sr-only">typing by krupyang</span>
+      <span class="sr-only">Typing by Krupyang</span>
     </span>
   </span>
 </template>

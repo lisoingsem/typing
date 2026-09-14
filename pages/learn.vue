@@ -3,6 +3,13 @@ import lessons from '~/data/content/km/lessons.json'
 
 const selected = ref(0)
 const lesson = computed(() => lessons[selected.value]!)
+
+useSeoMeta({
+  title: 'រៀនវាយអក្សរខ្មែរ NIDA',
+  description: 'រៀនវាយអក្សរខ្មែរតាមជំហាន ចាប់ពីជួរគោល រហូតដល់ព្យញ្ជនៈ ជើងអក្សរ និងស្រៈលើក្ដារចុចខ្មែរ NIDA។',
+  ogTitle: 'រៀនវាយអក្សរខ្មែរ NIDA · Krupyang',
+  ogDescription: 'មេរៀនវាយអក្សរខ្មែរតាមជំហាន ជាមួយផែនទីគ្រាប់ចុច និងការណែនាំម្រាមដៃ។',
+})
 </script>
 
 <template>

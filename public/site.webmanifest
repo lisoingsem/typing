@@ -1,0 +1,18 @@
+{
+  "name": "Typing by Krupyang — ហាត់វាយអក្សរខ្មែរ",
+  "short_name": "Krupyang",
+  "description": "រៀន និងហាត់វាយអក្សរខ្មែរលើក្ដារចុច NIDA។",
+  "lang": "km",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#23282c",
+  "theme_color": "#23282c",
+  "icons": [
+    {
+      "src": "/brand/krupyang-key.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

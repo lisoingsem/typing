@@ -1,5 +1,9 @@
 <script setup lang="ts">
 const settings = useSettingsStore()
+useSeoMeta({
+  title: 'ការកំណត់',
+  robots: 'noindex, nofollow',
+})
 onMounted(() => settings.hydrate())
 watch(() => settings.$state, () => settings.persist(), { deep: true })
 </script>

@@ -1,4 +1,4 @@
-# Krupyang Typing
+# Typing by Krupyang
 
 A Khmer-native typing practice application built with Nuxt 3, Vue 3, TypeScript, Tailwind CSS, and Pinia.
 
@@ -7,6 +7,29 @@ A Khmer-native typing practice application built with Nuxt 3, Vue 3, TypeScript,
 ```bash
 npm install
 npm run dev
+```
+
+## Production and Cloudflare Pages
+
+The site is statically generated for Cloudflare Pages:
+
+```bash
+npm run build:cloudflare
+```
+
+For Cloudflare Pages Git integration, use:
+
+- Production branch: `main`
+- Build command: `npm run build:cloudflare`
+- Build output directory: `.output/public`
+- Root directory: `/`
+
+Cloudflare provides `CF_PAGES_URL` automatically for canonical links. When using a custom domain, set `NUXT_PUBLIC_SITE_URL` to the final HTTPS origin (for example, `https://example.com`) in the Pages production environment.
+
+For an existing Direct Upload project, deploy from the command line with:
+
+```bash
+npm run deploy:cloudflare
 ```
 
 ## Khmer input architecture
