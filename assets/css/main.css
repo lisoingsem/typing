@@ -65,12 +65,4 @@ button { -webkit-tap-highlight-color: transparent; }
   50% { filter: brightness(1.35); }
 }
 
-@keyframes guideBounce {
-  0%, 100% { transform: translate(-50%, 0); }
-  50% { transform: translate(-50%, -4px); }
-}
-
 .guide-key { animation: guidePulse 1.35s ease-in-out infinite; }
-.guide-arrow { animation: guideBounce .8s ease-in-out infinite; }
-.finger-target { box-shadow: 0 0 0 4px rgb(226 183 20 / .12); }
-.guide-panel { box-shadow: 0 12px 35px rgb(0 0 0 / .08); }

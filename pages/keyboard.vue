@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { khmerKeyByCode } from '~/data/keyboards/khmer-nida'
+import { fingerLabels } from '~/lib/keyboard-guide'
 
 const activeCode = ref('')
 const keyName = computed(() => khmerKeyByCode.get(activeCode.value))
@@ -11,21 +12,27 @@ onBeforeUnmount(() => { window.removeEventListener('keydown', down); window.remo
 </script>
 
 <template>
-  <div class="flex flex-1 flex-col justify-center py-10">
-    <div class="mx-auto mb-12 max-w-2xl text-center">
-      <p class="mb-2 text-sm text-accent">Khmer NIDA</p>
-      <h1 class="text-3xl font-semibold sm:text-4xl">ស្គាល់ក្ដារចុចរបស់អ្នក</h1>
-      <p class="mt-4 leading-7 text-muted">ចុចគ្រាប់ចុចណាមួយលើក្ដារចុចពិត ដើម្បីមើលទីតាំង អក្សរខ្មែរ និងម្រាមដៃដែលគួរប្រើ។</p>
-      <div class="mt-5 h-8 text-sm text-accent">
-        <span v-if="keyName">{{ keyName.code }} → {{ keyName.normal || keyName.latin }} · {{ keyName.finger }}</span>
+  <div class="flex flex-1 flex-col justify-center py-8">
+    <header class="mx-auto mb-7 flex w-full max-w-5xl flex-col justify-between gap-5 sm:flex-row sm:items-end">
+      <div class="max-w-xl">
+        <p class="mb-1 text-[10px] uppercase tracking-[.18em] text-accent">Khmer NIDA</p>
+        <h1 class="text-2xl font-semibold sm:text-3xl">ផែនទីក្ដារចុច</h1>
+        <p class="mt-2 text-sm leading-6 text-muted">ចុចគ្រាប់ចុចពិត ដើម្បីមើលអក្សរខ្មែរ និងម្រាមដៃដែលគួរប្រើ។</p>
       </div>
-    </div>
+
+      <div class="flex min-h-14 min-w-48 items-center justify-end gap-3 rounded-xl bg-panel px-4 py-2 text-right">
+        <template v-if="keyName">
+          <span class="text-2xl font-semibold text-accent">{{ keyName.normal || keyName.latin }}</span>
+          <span>
+            <b class="block text-xs font-normal text-text">{{ keyName.latin }}</b>
+            <small class="text-[9px] text-muted">{{ fingerLabels[keyName.finger] }}</small>
+          </span>
+        </template>
+        <span v-else class="text-[10px] text-muted">ចុចគ្រាប់ចុចណាមួយ</span>
+      </div>
+    </header>
+
     <KhmerKeyboard :active-code="activeCode" />
-    <div class="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-10 gap-y-3 text-xs text-muted sm:grid-cols-4">
-      <span><i class="mr-2 inline-block h-2 w-2 rounded-full bg-[#d08b66]" />កូនដៃឆ្វេង</span>
-      <span><i class="mr-2 inline-block h-2 w-2 rounded-full bg-[#9b87c9]" />ចង្អុលឆ្វេង</span>
-      <span><i class="mr-2 inline-block h-2 w-2 rounded-full bg-[#6ba99d]" />ចង្អុលស្ដាំ</span>
-      <span><i class="mr-2 inline-block h-2 w-2 rounded-full bg-accent" />កូនដៃស្ដាំ</span>
-    </div>
+    <p class="mx-auto mt-5 text-center text-[10px] text-muted">សង្កត់ Shift ដើម្បីមើលស្រទាប់អក្សរទីពីរ</p>
   </div>
 </template>

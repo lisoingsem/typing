@@ -83,8 +83,7 @@ onMounted(() => {
         <span class="hidden sm:inline"><kbd class="rounded bg-muted px-2 py-1 text-page">esc</kbd> ផ្អាក</span>
       </div>
 
-      <div v-if="settings.guidedMode" class="mx-auto mb-5 grid w-full max-w-4xl gap-3 lg:grid-cols-[minmax(260px,.75fr)_minmax(500px,1.6fr)]">
-        <KhmerClusterCoach :cluster="activeCluster" :typed-codepoints="typedInActiveCluster" />
+      <div v-if="settings.guidedMode" class="mx-auto mb-3 flex w-full max-w-5xl flex-col gap-1">
         <TypingGuide
           class="!mb-0"
           :keystroke="guide"
@@ -93,6 +92,7 @@ onMounted(() => {
           :started="Boolean(engine.startedAt.value)"
           :feedback="engine.guideFeedback.value"
         />
+        <KhmerClusterCoach :cluster="activeCluster" :typed-codepoints="typedInActiveCluster" />
       </div>
 
       <KhmerKeyboard

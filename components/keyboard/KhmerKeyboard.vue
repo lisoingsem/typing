@@ -23,8 +23,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-4xl select-none space-y-2" aria-label="Khmer NIDA keyboard">
-    <div v-for="(row, rowIndex) in khmerNidaLayout" :key="rowIndex" class="flex gap-1.5">
+  <div class="mx-auto w-full max-w-5xl select-none space-y-1" aria-label="Khmer NIDA keyboard">
+    <div v-for="(row, rowIndex) in khmerNidaLayout" :key="rowIndex" class="flex gap-1">
       <KeyboardKey
         v-for="keyData in row"
         :key="keyData.code"
@@ -34,8 +34,8 @@ onBeforeUnmount(() => {
         :highlighted="highlightedCodes?.includes(keyData.code)"
         :guided="guide?.code === keyData.code"
         :guide-secondary="guidedShiftCode === keyData.code"
+        :has-guide="Boolean(guide)"
       />
     </div>
-    <FingerGuide v-if="guide" :finger="guide.finger" class="pt-4" />
   </div>
 </template>

@@ -28,34 +28,32 @@ const steps = computed(() => {
 })
 
 const displayCluster = computed(() => props.cluster === ' ' ? 'ចន្លោះ' : props.cluster || '✓')
+const currentRole = computed(() => steps.value.find(step => step.state === 'current')?.role)
 </script>
 
 <template>
-  <section class="rounded-xl border border-faint bg-panel p-4" aria-label="Khmer syllable builder">
-    <div class="flex items-center justify-between gap-3">
-      <div>
-        <p class="text-[9px] uppercase tracking-[.18em] text-muted">សង់ព្យាង្គ</p>
-        <p class="mt-1 text-3xl font-semibold text-text">{{ displayCluster }}</p>
-      </div>
-      <span class="rounded-full bg-page px-3 py-1 text-[9px] text-accent">KHMER LAB</span>
+  <section class="flex min-h-11 w-full items-center gap-3 overflow-x-auto px-1 py-1" aria-label="Khmer keystroke sequence">
+    <div class="flex shrink-0 items-baseline gap-2">
+      <p class="text-[9px] text-muted">លំដាប់</p>
+      <p class="text-xl font-semibold text-text">{{ displayCluster }}</p>
     </div>
 
-    <div class="mt-4 flex flex-wrap items-start gap-1.5">
+    <div class="h-5 w-px shrink-0 bg-faint" />
+
+    <div class="flex shrink-0 items-center gap-1">
       <div v-for="(step, index) in steps" :key="`${step.code}-${index}`" class="flex items-center gap-1.5">
-        <div class="min-w-12 rounded-lg border px-2 py-1.5 text-center transition-all" :class="{
-          'border-accent bg-accent text-page': step.state === 'done',
-          'border-accent bg-accent/10 text-accent': step.state === 'current',
-          'border-faint bg-page text-muted': step.state === 'next',
+        <div class="min-w-9 rounded-md px-2 py-1 text-center transition-all" :class="{
+          'bg-faint text-muted': step.state === 'done',
+          'bg-accent text-page': step.state === 'current',
+          'bg-panel text-muted': step.state === 'next',
         }">
-          <span class="block text-lg leading-none">{{ step.value === ' ' ? '␣' : step.value }}</span>
-          <span class="mt-1 block text-[8px] uppercase">{{ step.shift ? '⇧+' : '' }}{{ step.latin }}</span>
+          <span class="text-sm">{{ step.value === ' ' ? '␣' : step.value }}</span>
+          <span class="ml-1 text-[7px] uppercase opacity-70">{{ step.shift ? '⇧+' : '' }}{{ step.latin }}</span>
         </div>
-        <span v-if="index < steps.length - 1" class="text-[9px] text-muted">›</span>
+        <span v-if="index < steps.length - 1" class="text-[8px] text-muted">›</span>
       </div>
     </div>
 
-    <p v-if="steps.find(step => step.state === 'current')" class="mt-3 text-[10px] text-muted">
-      ផ្នែកបច្ចុប្បន្ន៖ <span class="text-accent">{{ steps.find(step => step.state === 'current')?.role }}</span>
-    </p>
+    <p v-if="currentRole" class="ml-auto hidden shrink-0 text-[9px] text-muted md:block">{{ currentRole }}</p>
   </section>
 </template>
