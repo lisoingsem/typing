@@ -4,8 +4,6 @@ import type { GuidedKeystroke } from '~/types/keyboard'
 
 const props = defineProps<{
   keystroke?: GuidedKeystroke
-  wpm: number
-  accuracy: number
   feedback: 'idle' | 'correct' | 'incorrect'
 }>()
 
@@ -20,7 +18,7 @@ const hintText = computed(() => {
 </script>
 
 <template>
-  <section class="flex min-h-14 w-full flex-wrap items-center gap-3 px-3 py-2.5 sm:flex-nowrap sm:px-4" aria-label="Typing guide">
+  <section class="flex min-h-14 w-full items-center gap-3 px-3 py-2.5 sm:w-[38%] sm:shrink-0 sm:px-4" aria-label="Typing guide">
     <div class="flex min-w-20 items-center gap-2">
       <p class="text-[10px] text-muted">បន្ទាប់</p>
       <p class="min-w-7 truncate text-center text-2xl font-semibold text-accent">{{ displayCharacter }}</p>
@@ -35,9 +33,5 @@ const hintText = computed(() => {
       <span v-if="keystroke" class="hidden text-[10px] md:inline" :class="feedback === 'incorrect' ? 'text-danger' : 'text-muted'">{{ hintText }}</span>
     </div>
 
-    <div class="ml-auto flex shrink-0 items-center gap-3 text-[9px] text-muted">
-      <span><b class="mr-1 text-sm font-normal text-text">{{ wpm }}</b>wpm</span>
-      <span><b class="mr-1 text-sm font-normal" :class="accuracy < 90 ? 'text-danger' : 'text-accent'">{{ accuracy }}%</b>acc</span>
-    </div>
   </section>
 </template>

@@ -32,7 +32,7 @@ const currentRole = computed(() => steps.value.find(step => step.state === 'curr
 </script>
 
 <template>
-  <section class="flex min-h-11 w-full items-center gap-3 overflow-x-auto border-t border-faint px-3 py-2 sm:px-4" aria-label="Khmer keystroke sequence">
+  <section class="flex min-h-14 w-full min-w-0 flex-1 items-center gap-3 overflow-x-auto border-t border-faint px-3 py-2 sm:w-auto sm:border-l sm:border-t-0 sm:px-4" aria-label="Khmer keystroke sequence">
     <div class="flex shrink-0 items-baseline gap-2">
       <p class="text-[9px] text-muted">លំដាប់</p>
       <p class="text-xl font-semibold text-text">{{ displayCluster }}</p>

@@ -83,14 +83,16 @@ onMounted(() => {
         <span class="hidden sm:inline"><kbd class="rounded bg-muted px-2 py-1 text-page">esc</kbd> ផ្អាក</span>
       </div>
 
-      <div v-if="settings.guidedMode" class="mx-auto mb-3 flex w-full max-w-4xl flex-col overflow-hidden rounded-xl bg-panel">
+      <div v-if="settings.guidedMode" class="mx-auto mb-2 flex w-full max-w-5xl flex-col overflow-hidden rounded-xl bg-panel sm:flex-row">
         <TypingGuide
           :keystroke="guide"
-          :wpm="engine.wpm.value"
-          :accuracy="engine.accuracy.value"
           :feedback="engine.guideFeedback.value"
         />
         <KhmerClusterCoach :cluster="activeCluster" :typed-codepoints="typedInActiveCluster" />
+        <div class="flex min-h-12 w-full shrink-0 items-center justify-end gap-3 border-t border-faint px-4 text-[9px] text-muted sm:min-h-14 sm:w-auto sm:border-l sm:border-t-0" aria-label="Live typing metrics">
+          <span><b class="mr-1 text-sm font-normal text-text">{{ engine.wpm.value }}</b>wpm</span>
+          <span><b class="mr-1 text-sm font-normal" :class="engine.accuracy.value < 90 ? 'text-danger' : 'text-accent'">{{ engine.accuracy.value }}%</b>acc</span>
+        </div>
       </div>
 
       <KhmerKeyboard
