@@ -41,7 +41,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-1 flex-col">
-    <TestToolbar v-if="!engine.finished.value" />
+    <TestToolbar v-if="!engine.finished.value" class="lg:hidden" />
 
     <div v-if="!engine.finished.value" class="flex flex-1 flex-col justify-start py-4 sm:py-5">
       <div

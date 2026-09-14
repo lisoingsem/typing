@@ -3,7 +3,6 @@ const route = useRoute()
 const settings = useSettingsStore()
 
 const primaryLinks = [
-  { to: '/', label: 'ហាត់', icon: 'practice' },
   { to: '/learn', label: 'រៀន', icon: 'learn' },
   { to: '/stats', label: 'ស្ថិតិ', icon: 'stats' },
 ] as const
@@ -20,7 +19,9 @@ onMounted(() => settings.hydrate())
   <header class="flex h-20 items-center justify-between gap-3 sm:h-24">
     <NuxtLink to="/" class="focus-ring shrink-0 rounded-xl" aria-label="Krupyang home"><BrandLogo /></NuxtLink>
 
-    <div class="flex min-w-0 items-center gap-1 sm:gap-2">
+    <TestToolbar v-if="route.path === '/'" class="hidden min-w-0 lg:block" />
+
+    <div class="flex shrink-0 items-center gap-1 sm:gap-2">
       <nav class="flex items-center gap-0.5" aria-label="Primary navigation">
         <NuxtLink
           v-for="link in primaryLinks"
@@ -31,8 +32,7 @@ onMounted(() => settings.hydrate())
           :class="route.path === link.to ? 'text-text' : ''"
           :aria-current="route.path === link.to ? 'page' : undefined"
         >
-          <svg v-if="link.icon === 'practice'" viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v12h16V6H4Zm3 3h3v2H7V9Zm4 0h3v2h-3V9Zm4 0h2v2h-2V9Zm-8 4h10v2H7v-2Z"/></svg>
-          <svg v-else-if="link.icon === 'learn'" viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M3 4h7a3 3 0 0 1 3 3v12a4 4 0 0 0-4-3H3V4Zm18 0h-7v12.5a5.8 5.8 0 0 1 3-1h4V4Z"/></svg>
+          <svg v-if="link.icon === 'learn'" viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M3 4h7a3 3 0 0 1 3 3v12a4 4 0 0 0-4-3H3V4Zm18 0h-7v12.5a5.8 5.8 0 0 1 3-1h4V4Z"/></svg>
           <svg v-else viewBox="0 0 24 24" class="h-4 w-4 fill-current"><path d="M4 19h16v2H2V3h2v16Zm3-2H5v-6h2v6Zm4 0H9V7h2v10Zm4 0h-2V9h2v8Zm4 0h-2V4h2v13Z"/></svg>
           <span class="hidden text-xs sm:block">{{ link.label }}</span>
           <span v-if="route.path === link.to" class="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-accent" aria-hidden="true" />

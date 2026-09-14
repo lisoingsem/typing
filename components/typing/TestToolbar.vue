@@ -3,7 +3,6 @@ const typing = useTypingStore()
 const modeOptions = [
   { value: 'words', label: 'ពាក្យ', icon: 'A' },
   { value: 'time', label: 'ពេល', icon: '◷' },
-  { value: 'quote', label: 'ឃ្លា', icon: '❝' },
   { value: 'syllables', label: 'មូលដ្ឋាន', icon: 'ក' },
 ] as const
 const parameters = computed(() => {
@@ -11,9 +10,7 @@ const parameters = computed(() => {
   if (typing.mode === 'words') return [10, 25, 50, 100]
   return [15, 30, 60, 120]
 })
-const showTextOptions = computed(() => typing.mode === 'time' || typing.mode === 'words')
-
-function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
+function selectMode(mode: 'syllables' | 'time' | 'words') {
   typing.mode = mode
   if (mode === 'syllables' && ![5, 10, 20, 30].includes(typing.parameter)) typing.parameter = 10
   if (mode === 'words' && ![10, 25, 50, 100].includes(typing.parameter)) typing.parameter = 25
@@ -37,9 +34,9 @@ function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
         </button>
       </div>
 
-      <span v-if="typing.mode !== 'quote'" class="mx-1.5 h-5 w-px shrink-0 bg-faint" aria-hidden="true" />
+      <span class="mx-1.5 h-5 w-px shrink-0 bg-faint" aria-hidden="true" />
 
-      <div v-if="typing.mode !== 'quote'" class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ប្រវែងលំហាត់">
+      <div class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ប្រវែងលំហាត់">
         <button
           v-for="value in parameters"
           :key="value"
@@ -52,29 +49,6 @@ function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
         </button>
       </div>
 
-      <template v-if="showTextOptions">
-        <span class="mx-1.5 h-5 w-px shrink-0 bg-faint" aria-hidden="true" />
-        <div class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ជម្រើសអត្ថបទ">
-          <button
-            class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
-            :class="typing.punctuation ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-            :aria-pressed="typing.punctuation"
-            title="បន្ថែមសញ្ញាវណ្ណយុត្តិ"
-            @click="typing.punctuation = !typing.punctuation"
-          >
-            ។ សញ្ញា
-          </button>
-          <button
-            class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
-            :class="typing.numbers ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-            :aria-pressed="typing.numbers"
-            title="បន្ថែមលេខ"
-            @click="typing.numbers = !typing.numbers"
-          >
-            ១២៣ លេខ
-          </button>
-        </div>
-      </template>
     </div>
   </div>
 </template>
