@@ -43,24 +43,22 @@ onMounted(() => {
   <div class="flex flex-1 flex-col">
     <div v-if="!engine.finished.value" class="flex flex-1 flex-col justify-start py-4 sm:py-5">
       <div
-        class="mx-auto flex h-10 w-full max-w-3xl items-center gap-4"
+        class="mx-auto flex h-5 w-full max-w-3xl items-center gap-3 transition-opacity duration-200"
+        :class="engine.startedAt.value ? 'opacity-100' : 'opacity-0'"
+        :aria-hidden="!engine.startedAt.value"
       >
-        <TestToolbar />
-
-        <div class="flex min-w-0 flex-1 items-center gap-3 transition-opacity duration-200" :class="engine.startedAt.value ? 'opacity-100' : 'opacity-0'" :aria-hidden="!engine.startedAt.value">
-          <span v-if="typing.mode === 'time'" class="w-8 text-right text-xs tabular-nums text-accent">{{ engine.remaining.value }}s</span>
-          <div
-            class="h-0.5 flex-1 overflow-hidden rounded-full bg-faint"
-            role="progressbar"
-            aria-label="វឌ្ឍនភាព"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            :aria-valuenow="Math.round(engine.progress.value * 100)"
-          >
-            <div class="h-full rounded-full bg-accent transition-[width] duration-100" :style="{ width: `${Math.min(100, engine.progress.value * 100)}%` }" />
-          </div>
-          <span v-if="typing.mode !== 'time'" class="w-8 text-xs tabular-nums text-muted">{{ Math.round(engine.progress.value * 100) }}%</span>
+        <span v-if="typing.mode === 'time'" class="w-8 text-right text-xs tabular-nums text-accent">{{ engine.remaining.value }}s</span>
+        <div
+          class="h-0.5 flex-1 overflow-hidden rounded-full bg-faint"
+          role="progressbar"
+          aria-label="វឌ្ឍនភាព"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          :aria-valuenow="Math.round(engine.progress.value * 100)"
+        >
+          <div class="h-full rounded-full bg-accent transition-[width] duration-100" :style="{ width: `${Math.min(100, engine.progress.value * 100)}%` }" />
         </div>
+        <span v-if="typing.mode !== 'time'" class="w-8 text-xs tabular-nums text-muted">{{ Math.round(engine.progress.value * 100) }}%</span>
       </div>
 
       <TypingText

@@ -40,6 +40,7 @@ onMounted(() => settings.hydrate())
       <span class="mx-1 h-5 w-px bg-faint" aria-hidden="true" />
 
       <nav class="flex shrink-0 items-center gap-0.5" aria-label="Tools">
+        <TestToolbar v-if="route.path === '/'" />
         <NuxtLink
           v-for="link in utilityLinks"
           :key="link.to"
