@@ -23,7 +23,7 @@ For Cloudflare Pages Git integration, use:
 
 - Production branch: `main`
 - Build command: `npm run build:cloudflare`
-- Build output directory: `.output/public`
+- Build output directory: `dist`
 - Root directory: `/`
 
 Cloudflare provides `CF_PAGES_URL` automatically for canonical links. When using a custom domain, set `NUXT_PUBLIC_SITE_URL` to the final HTTPS origin (for example, `https://example.com`) in the Pages production environment.

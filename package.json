@@ -6,7 +6,7 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "build:cloudflare": "nuxt generate",
-    "deploy:cloudflare": "npx --yes wrangler@latest pages deploy .output/public --project-name typing",
+    "deploy:cloudflare": "npx --yes wrangler@latest pages deploy dist --project-name typing",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",

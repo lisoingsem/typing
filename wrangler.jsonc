@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "typing",
-  "pages_build_output_dir": ".output/public",
+  "pages_build_output_dir": "dist",
   "compatibility_date": "2026-09-14",
   "vars": {
     "SKIP_DEPENDENCY_INSTALL": "1"
