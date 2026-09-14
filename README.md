@@ -28,6 +28,8 @@ For Cloudflare Pages Git integration, use:
 
 Cloudflare provides `CF_PAGES_URL` automatically for canonical links. When using a custom domain, set `NUXT_PUBLIC_SITE_URL` to the final HTTPS origin (for example, `https://example.com`) in the Pages production environment.
 
+The Wrangler configuration skips Cloudflare's automatic `npm ci`; the Pages build command installs from `package.json` without rewriting the lockfile, then generates the static site.
+
 For an existing Direct Upload project, deploy from the command line with:
 
 ```bash
