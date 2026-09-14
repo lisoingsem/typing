@@ -22,54 +22,59 @@ function selectMode(mode: 'syllables' | 'time' | 'words' | 'quote') {
 </script>
 
 <template>
-  <div class="mx-auto flex max-w-full items-center justify-start gap-2 overflow-x-auto pb-1 text-xs text-muted sm:justify-center sm:text-sm">
-    <div class="flex shrink-0 items-center gap-0.5 rounded-xl border border-faint bg-panel p-1" role="group" aria-label="ប្រភេទលំហាត់">
-      <button
-        v-for="option in modeOptions"
-        :key="option.value"
-        class="focus-ring flex h-9 items-center gap-1.5 rounded-lg px-2.5 transition hover:text-text sm:px-3"
-        :class="typing.mode === option.value ? 'bg-accent text-page shadow-sm' : 'hover:bg-faint'"
-        :aria-pressed="typing.mode === option.value"
-        @click="selectMode(option.value)"
-      >
-        <span class="font-bold">{{ option.icon }}</span><span>{{ option.label }}</span>
-      </button>
-    </div>
-
-    <div v-if="typing.mode !== 'quote'" class="flex shrink-0 items-center gap-0.5 rounded-xl border border-faint bg-panel p-1" role="group" aria-label="ប្រវែងលំហាត់">
-      <button
-        v-for="value in parameters"
-        :key="value"
-        class="focus-ring grid h-9 min-w-9 place-items-center rounded-lg px-2 transition hover:text-text"
-        :class="typing.parameter === value ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-        :aria-pressed="typing.parameter === value"
-        @click="typing.parameter = value"
-      >
-        {{ value }}
-      </button>
-    </div>
-
-    <template v-if="showTextOptions">
-      <div class="flex shrink-0 items-center gap-0.5 rounded-xl border border-faint bg-panel p-1" role="group" aria-label="ជម្រើសអត្ថបទ">
+  <div class="mx-auto max-w-full overflow-x-auto pb-1">
+    <div class="mx-auto flex w-max items-center gap-1 rounded-2xl bg-panel p-1.5 text-xs text-muted shadow-[0_12px_32px_rgba(0,0,0,.08)] sm:text-sm">
+      <div class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ប្រភេទលំហាត់">
         <button
-          class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
-          :class="typing.punctuation ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-          :aria-pressed="typing.punctuation"
-          title="បន្ថែមសញ្ញាវណ្ណយុត្តិ"
-          @click="typing.punctuation = !typing.punctuation"
+          v-for="option in modeOptions"
+          :key="option.value"
+          class="focus-ring flex h-9 items-center gap-1.5 rounded-lg px-2.5 transition hover:text-text sm:px-3"
+          :class="typing.mode === option.value ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
+          :aria-pressed="typing.mode === option.value"
+          @click="selectMode(option.value)"
         >
-          ។ សញ្ញា
-        </button>
-        <button
-          class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
-          :class="typing.numbers ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
-          :aria-pressed="typing.numbers"
-          title="បន្ថែមលេខ"
-          @click="typing.numbers = !typing.numbers"
-        >
-          ១២៣ លេខ
+          <span class="font-bold">{{ option.icon }}</span><span>{{ option.label }}</span>
         </button>
       </div>
-    </template>
+
+      <span v-if="typing.mode !== 'quote'" class="mx-1.5 h-5 w-px shrink-0 bg-faint" aria-hidden="true" />
+
+      <div v-if="typing.mode !== 'quote'" class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ប្រវែងលំហាត់">
+        <button
+          v-for="value in parameters"
+          :key="value"
+          class="focus-ring grid h-9 min-w-9 place-items-center rounded-lg px-2 transition hover:text-text"
+          :class="typing.parameter === value ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
+          :aria-pressed="typing.parameter === value"
+          @click="typing.parameter = value"
+        >
+          {{ value }}
+        </button>
+      </div>
+
+      <template v-if="showTextOptions">
+        <span class="mx-1.5 h-5 w-px shrink-0 bg-faint" aria-hidden="true" />
+        <div class="flex shrink-0 items-center gap-0.5" role="group" aria-label="ជម្រើសអត្ថបទ">
+          <button
+            class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
+            :class="typing.punctuation ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
+            :aria-pressed="typing.punctuation"
+            title="បន្ថែមសញ្ញាវណ្ណយុត្តិ"
+            @click="typing.punctuation = !typing.punctuation"
+          >
+            ។ សញ្ញា
+          </button>
+          <button
+            class="focus-ring h-9 rounded-lg px-2.5 transition hover:text-text"
+            :class="typing.numbers ? 'bg-page text-accent shadow-sm' : 'hover:bg-faint'"
+            :aria-pressed="typing.numbers"
+            title="បន្ថែមលេខ"
+            @click="typing.numbers = !typing.numbers"
+          >
+            ១២៣ លេខ
+          </button>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
